@@ -4,7 +4,7 @@
 <div class="position-absolute top-50 start-50 translate-middle">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Zie Mart</h4>
+            <h4 class="card-title text-center">Zie Resto</h4>
         </div>
         <div class="card-body">
             <form action="{{route('cekLogin')  }}" method="post" novalidate>
