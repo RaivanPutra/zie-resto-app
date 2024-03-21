@@ -13,6 +13,11 @@ class DetailTransaksi extends Model
     protected $fillable = ['id_transaksi','id_menu','jumlah','subtotal'];
 
     public function menu(){
-        return $this->belongsTo(Menu::class, 'id_menu');
+        return $this->hasOne(Menu::class,'id', 'id_menu');
+    }
+
+    public function transaksi()
+    {
+        return $tihs->belongsTo(Transaksi::class, 'id_transaksi');
     }
 }

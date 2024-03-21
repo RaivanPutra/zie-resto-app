@@ -11,7 +11,8 @@ class AuthController extends Controller
 {
     public function login()
     {
-        if ($user = Auth::user()) {
+        if (Auth::check()) {
+            $user = Auth::user();
             switch ($user->level) {
                 case '1':
                     return redirect()->intended('/');
@@ -22,6 +23,9 @@ class AuthController extends Controller
                 case '3':
                     return redirect()->intended('laporan');
                     break;
+                default:
+                    return redirect()->intended('/');
+                    break;
             }
         }
         return view('auth.login');
@@ -30,15 +34,12 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         return redirect('/login');
     }
 
     public function cekLogin(AuthRequest $request)
     {
         $credential = $request->only('email', 'password');
-        // dd($credential);
-        $request->session()->regenerate();
         if (Auth::attempt($credential)) {
             $user = Auth::user();
             switch ($user->level) {
@@ -51,11 +52,13 @@ class AuthController extends Controller
                 case '3':
                     return redirect()->intended('laporan');
                     break;
+                default:
+                    return redirect()->intended('/');
+                    break;
             }
-            return redirect()->intended('/');
         }
         return back()->withErrors([
             'email' => 'Email or Password is wrong'
-        ])->onlyInput('email');
+        ])->withInput($request->only('email'));
     }
 }

@@ -8,6 +8,8 @@ use App\Models\Jenis;
 use App\Http\Requests\JenisRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\JenisExport;
 
 class JenisController extends Controller
 {
@@ -96,5 +98,12 @@ class JenisController extends Controller
         } catch (QueryException | Exception | PDOException  $error) {
             $this->failResponse($error->getMessage() . $error->getCode());
         }
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-m-d');
+
+        return Excel::download(new JenisExport, $date. '_jenis.xlsx');
     }
 }

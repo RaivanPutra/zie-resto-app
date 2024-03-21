@@ -8,6 +8,8 @@ use App\Models\Member;
 use App\Http\Requests\MemberRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MemberExport;
 
 class MemberController extends Controller
 {
@@ -85,5 +87,12 @@ class MemberController extends Controller
         Member::find($id)->delete();
         return redirect('member')->with('success', 'Data berhasil dihapus!');
 
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-m-d');
+
+        return Excel::download(new MemberExport, $date. '_member.xlsx');
     }
 }

@@ -23,7 +23,7 @@
                                                 <div class="col-6">
                                                     <label for="nama_jenis" class="form-label">Pilih Jenis</label>
                                                     <select name="jenis_id" id="jenis_id" class="form-select"
-                                                        id="basicSelect">
+                                                        id="basicSelect">  MOO
                                                         <option value="" selected disabled>Pilih Nama Jenis</option>
                                                         @foreach ($jenis as $j)
                                                         <option value="{{ $j->id }}">
@@ -51,19 +51,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                               
                                                 <div class="col-6">
                                                     <label class="form-label">Deskripsi
                                                     </label>
                                                     <textarea class="form-control" name="deskripsi" id="deskripsi"
                                                         rows="2"></textarea>
                                                 </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
+                                                <div class="col-12 ">
+                                                    <div class="form-group mb-6">
                                                         <label class="form-label">Upload Image</label>
-                                                        <input type="file" name="image" class="image-preview-filepond">
+                                                        <input type="file" name="image" class="form-control">
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="modal-footer">
                                                         <div class="col-12 d-flex justify-content-end">

@@ -35,14 +35,16 @@
                 @include('menu.data')
             </div>
         </div>
+        @include('menu.form')
     </section>
 </div>
 @endsection
 <!-- End Main -->
-@include('menu.form')
+
 <script src="dist/assets/extensions/jquery/jquery.min.js"></script>
 <script src="dist/assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="dist/assets/static/js/pages/parsley.js"></script>
+
 
 @push('script')
 <script>
@@ -79,16 +81,15 @@ $('#formMenuModal').on('show.bs.modal', function(e) {
     const id = btn.data('id');
     const modal = $(this);
     if (mode === 'edit') {
-        modal.find('#method').html('@method('
-            PATCH ')');
+        console.log(id);
+        modal.find('#method').html('@method('PATCH')');
         modal.find('.modal-title').text('Edit Data Menu');
         modal.find('#nama_menu').val(nama_menu);
         modal.find('#harga').val(harga);
-        modal.find('#jenis_id').val(jenis_id);
+        modal.find('#jenis_id').val(jenis_id).change();
         // modal.find('#image').val(image);
         modal.find('#deskripsi').val(deskripsi);
-        modal.find('.modal-body form').attr('action', '{{ url('
-            menu ') }}/' + id);
+        modal.find('.modal-body form').attr('action', '{{ url('menu') }}/' + id);
     } else {
         modal.find('#nama_menu').val('');
         modal.find('#harga').val('');
@@ -96,8 +97,7 @@ $('#formMenuModal').on('show.bs.modal', function(e) {
         // modal.find('#image').val('');
         modal.find('#deskripsi').val('');
         modal.find('#method').html('');
-        modal.find('.modal-body form').attr('action', '{{ url('
-            menu ') }}');
+        modal.find('.modal-body form').attr('action', '{{ url('menu') }}');
         modal.find('.modal-title').text('Input Data Menu');
     }
 });

@@ -27,7 +27,7 @@
                                      </button>
                                  </form>
                                  <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModalStok"
-                                     data-mode="edit" data-id="{{ $s->id }}" data-nama_menu="{{ $s->nama_menu }}"
+                                     data-mode="edit" data-menu_id="{{ $s->menu_id }}" data-id="{{ $s->id }}" data-nama_menu=" $s->nama_menu  }}"
                                      data-jumlah="{{ $s->jumlah }}">
                                      <i class="fas fa-edit"></i>
                                  </button>

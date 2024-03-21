@@ -12,33 +12,37 @@ use App\Models\Member;
 class HomeController extends Controller
 {
     public function Home()
-{
-    // Mendapatkan user yang sedang login
-    $user = Auth::user();
+    {
+        // Mendapatkan user yang sedang login
+        $user = Auth::user();
+        
+        // Mendefinisikan peta nilai untuk level pengguna
+        $levelLabels = [
+            1 => 'Admin',
+            2 => 'Kasir',
+            3 => 'Owner'
+        ];
+        
+        // Mengambil nama dan level user
+        $name = $user->name;
+        $level = $user->level;
+        
+        // Menentukan label berdasarkan level pengguna
+        $userLevel = $levelLabels[$level] ?? 'Unknown';
+        
+        // Mengembalikan tampilan dengan data user
+        return view('dashboard.home', [
+            'title' => 'Home',
+            'name' => $name,
+            'level' => $userLevel,
+            'jumlahMenu' => Menu::count(),
+            'jumlahJenis' => Jenis::count(),
+            'jumlahMember' => Member::count(),
+        ]);
+    }
 
-    // Mendefinisikan peta nilai untuk level pengguna
-    $levelLabels = [
-        1 => 'Admin',
-        2 => 'Kasir',
-        3 => 'Owner'
-    ];
-
-    // Mengambil nama dan level user
-    $name = $user->name;
-    $level = $user->level;
-
-    // Menentukan label berdasarkan level pengguna
-    $userLevel = $levelLabels[$level] ?? 'Unknown';
-
-    // Mengembalikan tampilan dengan data user
-    return view('dashboard.home', [
-        'title' => 'Home',
-        'name' => $name,
-        'level' => $userLevel,
-        'jumlahMenu' => Menu::count(),
-        'jumlahJenis' => Jenis::count(),
-        'jumlahMember' => Member::count(),
-    ]);
-}
+    public function about(){
+        return view('dashboard.about', ['title' => 'About']);
+    }
 
 }

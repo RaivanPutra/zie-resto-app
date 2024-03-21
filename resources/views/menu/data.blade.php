@@ -33,9 +33,7 @@
                                      </button>
                                  </form>
                                  <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formMenuModal"
-                                     data-mode="edit" data-id="{{ $m->id }}" data-jenis_id="{{ $m->jenis_id }}"
-                                     data-nama_menu="{{ $m->nama_menu }}" data-harga="{{ $m->harga }}"
-                                     data-deskripsi="{{ $m->deskripsi }}">
+                                     data-mode="edit" data-id="{{ $m->id }}" data-nama_jenis="{{ $m->nama_jenis }}" data-nama_menu="{{ $m->nama_menu }}" data-jenis_id="{{ $m->jenis_id }}" data-harga="{{ $m->harga }}" data-image="{{ $m->image }}" data-deskripsi="{{ $m->deskripsi }}">
                                      <i class="fas fa-edit"></i>
                                  </button>
                              </td>

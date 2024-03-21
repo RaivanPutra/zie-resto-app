@@ -21,7 +21,7 @@ class MenuController extends Controller
     {
         try {
             // Mengambil data menu dengan jenis
-            $data['menu'] = Menu::with('jenis')->orderBy('created_at', 'DESC')->get();
+            $data['menu'] = Menu::with(['jenis'])->orderBy('created_at', 'DESC')->get();
             $data['jenis'] = Jenis::all();
             // dd($data['menu']); // Jika Anda ingin memeriksa data yang diambil
             return view('menu.index', ['title' => 'Menu'])->with($data);
@@ -86,9 +86,20 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(MenuRequest $request, Menu $menu)
+    public function update(MenuRequest $request,  $id)
     {
-        //
+        try {
+            // Validasi data yang dikirimkan
+            $validatedData = $request->validated();
+    
+            // Update data menu
+            Menu::find($id)->update($validatedData);
+    
+            return redirect('menu')->with('success', 'Update data berhasil!');
+        } catch (\Exception $error) {
+            // Tangani kesalahan jika terjadi
+            return 'haha error' . $error->getMessage() . $error->getCode();
+        }
     }
 
     /**

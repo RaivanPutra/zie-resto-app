@@ -25,19 +25,25 @@
             <div class="card-header">
                 <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
                     data-bs-target="#formModalStok">
-                    <i class="bi bi-plus"></i> Tambah Stok
+                    <i class="bi bi-plus"></i>Form Tambah Stok
+                </button>
+                </button>
+                    <a href="{{ route('export-stok') }}" class="btn btn-primary block">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Export</a>
+                    <button type="button" class="btn btn-warning block" data-bs-toggle="modal"
+                    data-bs-target="#formInputModal">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Import
                 </button>
             </div>
             <div class="card-body">
                 @include('stok.data')
             </div>
         </div>
+        @include('stok.form')
     </section>
 </div>
 @endsection
-
 <!-- End Content -->
-@include('stok.form')
 <script src="dist/assets/extensions/jquery/jquery.min.js"></script>
 <script src="dist/assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="dist/assets/static/js/pages/parsley.js"></script>
@@ -70,20 +76,18 @@ $('#formModalStok').on('show.bs.modal', function(e) {
     const id = btn.data('id')
     const modal = $(this)
     if (mode == 'edit') {
-        modal.find('#method').html('@method('
-            PATCH ')')
+        console.log(id)
+        modal.find('#method').html('@method('PATCH')')
         modal.find('.modal-title').text('Edit Data stok')
-        modal.find('#menu_id').val(menu_id)
+        modal.find('#menu_id').val(menu_id).change();
         modal.find('#jumlah').val(jumlah)
-        modal.find('.modal-body form').attr('action', '{{ url('
-            stok ') }}/' + id)
+        modal.find('.modal-body form').attr('action', '{{ url('stok') }}/' + id)
     } else {
         modal.find('.modal-title').text('Input Data stok')
         modal.find('#menu_id').val('')
         modal.find('#jumlah').val('')
         modal.find('#method').html('')
-        modal.find('.modal-body form').attr('action', '{{ url('
-            stok ') }}')
+        modal.find('.modal-body form').attr('action', '{{ url('stok') }}')
     }
 })
 </script>

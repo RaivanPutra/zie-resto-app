@@ -22,10 +22,9 @@ class MenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_jenis' => 'required',
+            'jenis_id' => 'required',
             'nama_menu' => 'required',
             'harga' => 'required',
-            'stok' => 'required',
             'deskripsi' => 'required'
         ];
     }
@@ -34,7 +33,7 @@ class MenuRequest extends FormRequest
     {
         return [
             'nema_menu.required' => 'Nama menu harus diisi.',
-            'id_jenis.required' => 'Id jenis harus diisi.',
+            'jenis_id.required' => 'Id jenis harus diisi.',
             'harga.required' => 'Harga harus diisi.',
             'deskripsi.required' => 'Deskripsi menu harus diisi.',
         ];

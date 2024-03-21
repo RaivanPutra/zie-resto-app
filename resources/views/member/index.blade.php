@@ -27,16 +27,23 @@
                     data-bs-target="#formModalMember">
                     <i class="bi bi-plus"></i> Tambah Member
                 </button>
+                </button>
+                    <a href="{{ route('export-member') }}" class="btn btn-primary block">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Export</a>
+                    <button type="button" class="btn btn-warning block" data-bs-toggle="modal"
+                    data-bs-target="#formInputModal">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Import
+                </button>
             </div>
             <div class="card-body">
                 @include('member.data')
             </div>
         </div>
+        @include('member.form')
     </section>
 </div>
 @endsection
 <!-- End Main -->
-@include('member.form')
 <script src="dist/assets/extensions/jquery/jquery.min.js"></script>
 <script src="dist/assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="dist/assets/static/js/pages/parsley.js"></script>
@@ -71,15 +78,13 @@ $('#formModalMember').on('show.bs.modal', function(e) {
     const id = btn.data('id')
     const modal = $(this)
     if (mode == 'edit') {
-        modal.find('#method').html('@method('
-            PATCH ')')
+        modal.find('#method').html('@method('PATCH')')
         modal.find('.modal-title').text('Edit Data Member')
         modal.find('#nama').val(nama)
         modal.find('#email').val(email)
         modal.find('#no_tlp').val(no_tlp)
         modal.find('#alamat').val(alamat)
-        modal.find('.modal-body form').attr('action', '{{ url('
-            member ') }}/' + id)
+        modal.find('.modal-body form').attr('action', '{{ url('member') }}/' + id)
     } else {
         modal.find('.modal-title').text('Input Data Member')
         modal.find('#nama').val('')
@@ -87,8 +92,7 @@ $('#formModalMember').on('show.bs.modal', function(e) {
         modal.find('#no_tlp').val('')
         modal.find('#alamat').val('')
         modal.find('#method').html('')
-        modal.find('.modal-body form').attr('action', '{{ url('
-            member ') }}')
+        modal.find('.modal-body form').attr('action', '{{ url('member') }}')
     }
 })
 </script>

@@ -28,16 +28,23 @@
                     data-bs-target="#formJenisModal">
                     <i class="bi bi-plus"></i> Tambah Jenis
                 </button>
+                </button>
+                    <a href="{{ route('export-jenis') }}" class="btn btn-primary block">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Export</a>
+                    <button type="button" class="btn btn-warning block" data-bs-toggle="modal"
+                    data-bs-target="#formInputModal">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Import
+                </button>
             </div>
             <div class="card-body">
                 @include('jenis.data')
             </div>
         </div>
+        @include('jenis.form')
     </section>
 </div>
 @endsection
 <!-- End Main -->
-@include('jenis.form')
 <script src="dist/assets/extensions/jquery/jquery.min.js"></script>
 <script src="dist/assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="dist/assets/static/js/pages/parsley.js"></script>
@@ -70,18 +77,15 @@ $('#formJenisModal').on('show.bs.modal', function(e) {
     const id = btn.data('id')
     const modal = $(this)
     if (mode == 'edit') {
-        modal.find('#method').html('@method('
-            PATCH ')')
+        modal.find('#method').html('@method('PATCH')')
         modal.find('.modal-title').text('Edit Data Jenis')
         modal.find('#nama_jenis').val(nama_jenis)
-        modal.find('.modal-body form').attr('action', '{{ url('
-            jenis ') }}/' + id)
+        modal.find('.modal-body form').attr('action', '{{ url('jenis') }}/' + id)
     } else {
         modal.find('.modal-title').text('Input Data Jenis')
         modal.find('#nama_jenis').val('')
         modal.find('#method').html('')
-        modal.find('.modal-body form').attr('action', '{{ url('
-            jenis ') }}')
+        modal.find('.modal-body form').attr('action', '{{ url('jenis') }}')
     }
 })
 </script>

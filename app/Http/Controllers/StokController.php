@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Stok;
 use App\Http\Requests\StokRequest;
-use App\Http\Requests\UpdateStokRequest;
 use App\Models\Menu;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StokExport;
 
 class StokController extends Controller
 {
@@ -34,11 +37,22 @@ class StokController extends Controller
     public function store(StokRequest $request)
     {
         try {
-            Stok::create($request->all()); //query input ke table
-            return redirect('stok')->with('success', 'Data jenis berhasil ditambahkan!');
-        } catch (QueryException | Exception | PDOException $error) {
+            $menu_id = $request->input('menu_id');
+            $jumlah = $request->input('jumlah');
+            
+            // Cek apakah stok untuk menu tersebut sudah ada
+            $existingStok = Stok::where('menu_id', $menu_id)->first();
 
-            // $this->failResponse($error->getMessage(), $error->getCode());
+            if ($existingStok) {
+                // Jika sudah ada, update jumlah stok
+                $existingStok->update(['jumlah' => $existingStok->jumlah + $jumlah]);
+            } else {
+                // Jika belum ada, buat entri stok baru
+                Stok::create(['menu_id' => $menu_id, 'jumlah' => $jumlah]);
+            }
+
+            return redirect('stok')->with('success', 'Data stok berhasil ditambahkan!');
+        } catch (QueryException | ModelNotFoundException | \Exception $error) {
             return 'haha error' . $error->getMessage() . $error->getCode();
         }
     }
@@ -85,5 +99,12 @@ class StokController extends Controller
     {
         Stok::find($id)->delete();
         return redirect('stok')->with('success','Data Stok Berhasil di Delete');
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-m-d');
+
+        return Excel::download(new StokExport, $date. '_stok.xlsx');
     }
 }
