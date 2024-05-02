@@ -45,14 +45,21 @@
 
                 <li class="sidebar-item {{ Request::is('/') ? 'active bg-gradient-primary' : '' }} ">
                     <a href="/" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
+                    <i class="bi bi-house-door-fill"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ Request::is('absensi') ? 'active bg-gradient-primary' : '' }} ">
+                    <a href="absensi" class='sidebar-link'>
+                        <i class="bi bi-calendar-plus-fill"></i>
+                        <span>Absensi Kerja</span>
                     </a>
                 </li>
 
                 @if (Auth::user()->level == 1)
                 <li class="sidebar-title">Admin</li>
-                <li class="sidebar-item  has-sub {{ Request::is('jenis', 'menu', 'stok', 'titipan') ? 'active bg-gradient-primary' : '' }}">
+                <li class="sidebar-item  has-sub {{ Request::is('jenis', 'menu', 'stok', 'titipan', 'Meja') ? 'active bg-gradient-primary' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-hexagon-fill"></i>
                         <span>Modul</span>
@@ -70,19 +77,22 @@
                         <li class="submenu-item {{ Request::is('stok') ? 'active' : '' }}">
                             <a href="stok" class="submenu-link">Stok</a>
                         </li>
+                        <li class="submenu-item {{ Request::is('meja') ? 'active' : '' }}">
+                            <a href="meja" class="submenu-link">Meja</a>
+                        </li>
                     </ul>
                 </li>
                 @endif
 
                 @if (Auth::user()->level == 2 || Auth::user()->level == 1)
-                <li class="sidebar-item  has-sub {{ Request::is('pemesanan', 'member') ? 'active bg-gradient-primary' : '' }}">
+                <li class="sidebar-item  has-sub {{ Request::is('transaksi', 'member') ? 'active bg-gradient-primary' : '' }}">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
+                    <i class="bi bi-bag-fill"></i>
                         <span>Kasir</span>
                     </a>
                     <ul class="submenu ">
-                        <li class="submenu-item {{ Request::is('pemesanan') ? 'active' : '' }}">
-                            <a href="{{ url('pemesanan') }}" class="submenu-link">Transaksi</a>
+                        <li class="submenu-item {{ Request::is('transaksi') ? 'active' : '' }}">
+                            <a href="{{ url('transaksi') }}" class="submenu-link">Transaksi</a>
                         </li>
                         <li class="submenu-item {{ Request::is('member') ? 'active' : '' }}">
                             <a href="member" class="submenu-link">Member</a>
@@ -94,7 +104,7 @@
                 @if (Auth::user()->level == 3 || Auth::user()->level == 1)
                 <li class="sidebar-item  has-sub {{ Request::is('report') ? 'active bg-gradient-primary' : '' }}">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
+                    <i class="bi bi-person-badge-fill"></i>
                         <span>Owner</span>
                     </a>
                     <ul class="submenu ">
@@ -109,6 +119,12 @@
                     <a href="about" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Tentang Aplikasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('contact') ? 'active bg-gradient-primary' : '' }} ">
+                    <a href="contact" class='sidebar-link'>
+                        <i class="bi bi-bell-fill"></i>
+                        <span>Contact Us</span>
                     </a>
                 </li>
             </ul>

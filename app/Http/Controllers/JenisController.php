@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\JenisExport;
+use App\Imports\JenisImport;
+
 
 class JenisController extends Controller
 {
@@ -25,7 +27,7 @@ class JenisController extends Controller
         } catch (QueryException | Exception | PDOException $error) {
             // Handle the error gracefully
             return 'Error: ' . $error->getMessage() . ' Code: ' . $error->getCode();
-    }
+        }
     }
 
 
@@ -105,5 +107,17 @@ class JenisController extends Controller
         $date = date('Y-m-d');
 
         return Excel::download(new JenisExport, $date. '_jenis.xlsx');
+    }
+    
+    public function importData()
+    {
+        try {
+            Excel::import(new JenisImport, request()->file('import'));
+        
+            return redirect('jenis')->with('success', 'Import Data berhasil!');
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return redirect('jenis')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 }

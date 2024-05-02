@@ -30,12 +30,20 @@
                     data-bs-target="#formMenuModal">
                     <i class="bi bi-plus"></i> Tambah Menu
                 </button>
+                </button>
+                    <a href="{{ route('export-menu') }}" class="btn btn-primary block">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Export</a>
+                    <button type="button" class="btn btn-warning block" data-bs-toggle="modal"
+                    data-bs-target="#formInputModal">
+                    <i class="bi bi-file-earmark-excel-fill"></i> Import
+                </button>
             </div>
             <div class="card-body">
                 @include('menu.data')
             </div>
         </div>
         @include('menu.form')
+        @include('menu.formInput')
     </section>
 </div>
 @endsection
@@ -87,7 +95,7 @@ $('#formMenuModal').on('show.bs.modal', function(e) {
         modal.find('#nama_menu').val(nama_menu);
         modal.find('#harga').val(harga);
         modal.find('#jenis_id').val(jenis_id).change();
-        // modal.find('#image').val(image);
+        modal.find('#image').val(image);
         modal.find('#deskripsi').val(deskripsi);
         modal.find('.modal-body form').attr('action', '{{ url('menu') }}/' + id);
     } else {

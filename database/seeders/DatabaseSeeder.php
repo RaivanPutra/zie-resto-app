@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Transaksi;
+use App\Models\DetailTransaksi;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            JenisSeeder::class,
+            MenuSeeder::class,
+            StokSeeder::class,
+            MemberSeeder::class,
+            MejaSeeder::class,
+            UserSeeder::class,
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Transaksi::factory()->count(5)->create();
+        // DetailTransaksi::factory()->count(10)->create();
     }
 }

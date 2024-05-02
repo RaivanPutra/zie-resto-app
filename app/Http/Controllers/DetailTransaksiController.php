@@ -13,7 +13,7 @@ class DetailTransaksiController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

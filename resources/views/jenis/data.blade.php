@@ -20,11 +20,11 @@
                                      action="{{ url(request()->segment(1) . '/' . $j->id) }}">
                                      @method('DELETE')
                                      @csrf
-                                     <button type="button" title="Delete" class="btn btn-danger delete-data">
+                                     <button type="button" title="Delete" class="btn btn-danger delete-data mb-2">
                                          <i class="fas fa-trash danger"></i>
                                      </button>
                                  </form>
-                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formJenisModal"
+                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formAbensiModal"
                                      data-mode="edit" data-id="{{ $j->id }}" data-nama_jenis="{{ $j->nama_jenis }}">
                                      <i class="fas fa-edit"></i>
                                  </button>

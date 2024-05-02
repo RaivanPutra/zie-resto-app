@@ -47,7 +47,7 @@ class AuthController extends Controller
                     return redirect()->intended('/');
                     break;
                 case '2':
-                    return redirect()->intended('pemesanan');
+                    return redirect()->intended('transaksi');
                     break;
                 case '3':
                     return redirect()->intended('laporan');

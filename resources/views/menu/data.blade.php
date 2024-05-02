@@ -28,7 +28,7 @@
                                      action="{{ url(request()->segment(1) . '/' . $m->id) }}">
                                      @method('DELETE')
                                      @csrf
-                                     <button type="button" title="Delete" class="btn btn-danger delete-data">
+                                     <button type="button" title="Delete" class="btn btn-danger delete-data mb-2">
                                          <i class="fas fa-trash danger"></i>
                                      </button>
                                  </form>

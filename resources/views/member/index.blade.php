@@ -40,6 +40,7 @@
             </div>
         </div>
         @include('member.form')
+        @include('member.formInput')
     </section>
 </div>
 @endsection

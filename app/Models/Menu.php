@@ -18,7 +18,7 @@ class Menu extends Model
         return $this->belongsTo(Jenis::class, 'jenis_id');
     }
 
-    public function stok(): HasOne // Tipe pengembalian yang diperbaiki
+    public function stok(): HasOne 
     {
         return $this->hasOne(Stok::class, 'menu_id', 'id');
     }

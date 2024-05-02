@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MemberExport;
+use App\Imports\MemberImport;
 
 class MemberController extends Controller
 {
@@ -94,5 +95,17 @@ class MemberController extends Controller
         $date = date('Y-m-d');
 
         return Excel::download(new MemberExport, $date. '_member.xlsx');
+    }
+
+    public function importData()
+    {
+        try {
+            Excel::import(new MemberImport, request()->file('import'));
+        
+            return redirect('member')->with('success', 'Import Data berhasil!');
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return redirect('member')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 }

@@ -11,6 +11,9 @@ use Exception;
 use PDOException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MenuExport;
+use App\Imports\MenuImport;
 
 class MenuController extends Controller
 {
@@ -58,49 +61,46 @@ class MenuController extends Controller
         $data['jenis_id'] = $request->jenis_id; 
         $data['nama_menu'] = $request->nama_menu; 
         $data['harga'] = $request->harga; 
-        $data['stok'] = $request->stok; 
         $data['image'] = $filename; 
         $data['deskripsi'] = $request->deskripsi; 
         
         // jalankan perintah create data
         Menu::create($data);
         return redirect('menu')->with('success', 'Data menu berhasil ditambahkan.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Menu $menu)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Menu $menu)
-    {
-        //
-    }
+    } 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(MenuRequest $request,  $id)
+    public function update(MenuRequest $request, $id)
     {
-        try {
-            // Validasi data yang dikirimkan
-            $validatedData = $request->validated();
-    
-            // Update data menu
-            Menu::find($id)->update($validatedData);
-    
-            return redirect('menu')->with('success', 'Update data berhasil!');
+    try {
+        $validatedData = $request->validated();
+
+        $menu = Menu::find($id);
+
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($menu->image);
+
+            $image = $request->file('image');
+
+            $filename = time() . '.' . $image->getClientOriginalName();
+
+            $path = 'menu-image/' . $filename;
+
+            Storage::disk('public')->put($path, file_get_contents($image));
+
+            $validatedData['image'] = $filename;
+        }
+
+            $menu->update($validatedData);
+
+        return redirect('menu')->with('success', 'Update data berhasil!');
         } catch (\Exception $error) {
-            // Tangani kesalahan jika terjadi
-            return 'haha error' . $error->getMessage() . $error->getCode();
+        return 'haha error' . $error->getMessage() . $error->getCode();
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -116,5 +116,24 @@ class MenuController extends Controller
             return redirect('menu')->with('success', 'Data berhasil dihapus!');
         }
 
+    }
+
+    public function exportData()
+    {
+        $date = date('Y-m-d');
+
+        return Excel::download(new MenuExport, $date. '_menu.xlsx');
+    }
+
+    public function importData()
+    {
+        try {
+            Excel::import(new MenuImport, request()->file('import'));
+        
+            return redirect('menu')->with('success', 'Import Data berhasil!');
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return redirect('menu')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 }

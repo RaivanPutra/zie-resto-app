@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_transaksi')->references('id')->on('transaksi')->cascadeOnDelete();
-            $table->foreignId('id_menu')->references('id')->on('menu')->cascadeOnDelete();
-            $table->unsignedBigInteger('jumlah');
+            $table->string('transaksi_id');
+            $table->unsignedBigInteger('menu_id');
+            $table->integer('jumlah');
             $table->double('subtotal');
             $table->timestamps();
+
+            $table->foreign('transaksi_id')->references('id')->on('transaksi');
         });
     }
 

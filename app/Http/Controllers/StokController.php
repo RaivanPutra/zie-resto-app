@@ -9,6 +9,7 @@ use App\Http\Requests\StokRequest;
 use App\Models\Menu;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StokExport;
+use App\Imports\StokImport;
 
 class StokController extends Controller
 {
@@ -106,5 +107,17 @@ class StokController extends Controller
         $date = date('Y-m-d');
 
         return Excel::download(new StokExport, $date. '_stok.xlsx');
+    }
+
+    public function importData()
+    {
+        try {
+            Excel::import(new StokImport, request()->file('import'));
+        
+            return redirect('stok')->with('success', 'Import Data berhasil!');
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return redirect('stok')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 }

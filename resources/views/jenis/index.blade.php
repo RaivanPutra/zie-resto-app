@@ -41,6 +41,7 @@
             </div>
         </div>
         @include('jenis.form')
+        @include('jenis.formInput')
     </section>
 </div>
 @endsection

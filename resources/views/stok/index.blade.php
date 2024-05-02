@@ -40,6 +40,7 @@
             </div>
         </div>
         @include('stok.form')
+        @include('stok.formInput')
     </section>
 </div>
 @endsection

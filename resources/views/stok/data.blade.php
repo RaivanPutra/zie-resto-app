@@ -6,7 +6,7 @@
                      <thead>
                          <tr>
                              <th>No</th>
-                             <th>Nama Jenis</th>
+                             <th>Nama Menu</th>
                              <th>Jumlah</th>
                              <th>Action</th>
                          </tr>
@@ -22,7 +22,7 @@
                                      action="{{ url(request()->segment(1) . '/' . $s->id) }}">
                                      @method('DELETE')
                                      @csrf
-                                     <button type="button" title="Delete" class="btn btn-danger delete-data">
+                                     <button type="button" title="Delete" class="btn btn-danger delete-data mb-2">
                                          <i class="fas fa-trash danger"></i>
                                      </button>
                                  </form>
